@@ -116,7 +116,8 @@ class TCChamferPlus(bpy.types.Operator):
             if operate(context, bm, selected):
                 bmesh.update_edit_mesh(me, True)
                 
-                bpy.ops.mesh.bevel('INVOKE_DEFAULT', vertex_only=True)
+                # bpy.ops.mesh.bevel('INVOKE_DEFAULT', vertex_only=True)
+                bpy.ops.mesh.bevel('INVOKE_REGION_WIN', vertex_only=True)
                 
                 return {"FINISHED"}
 
