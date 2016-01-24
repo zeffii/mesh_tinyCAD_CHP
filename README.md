@@ -25,6 +25,8 @@ This addon lives separately from the mesh_tinyCAD add-on.
 
 This only intended to solve the `V` condition. Not `X` and `T` (are a little more involved..and not worth my time)
 
+`V` is the last row in this graphic.  
+![image 1](https://cloud.githubusercontent.com/assets/619340/12535934/071df51a-c295-11e5-8ae0-4efd475e4273.png)
 
 
 
