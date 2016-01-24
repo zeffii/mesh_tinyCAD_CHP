@@ -13,11 +13,12 @@ OWN_PRECISION = 1.0e-5
 
 def point_on_edge(p, edge):
     '''
+    # modifier from cad_module
     > p:        vector
     > edge:     tuple of 2 vectors
     < returns:  True / False if a point happens to lie on an edge
     '''
-    pt, _percent = PtLineIntersect(p, *edge)
+    pt, _percent = PtLineIntersect(p, edge.verts[0].co, edge.verts[1].co)
     on_line = (pt-p).length < OWN_PRECISION
     return on_line and (0.0 <= _percent <= 1.0)
 
@@ -48,7 +49,7 @@ def operate(context, bm, selected):
     
     # reaches this point if the intersection doesnt lie on either edge
     def get_vertex(edge):
-        IDX_BOOL = bool((edge.verts[0]-p0).length < (edge.verts[1]-p0).length)
+        IDX_BOOL = bool((edge.verts[0].co-p0).length < (edge.verts[1].co-p0).length)
         return edge.verts[IDX_BOOL]
 
     v1 = bm.verts.new(p0)
