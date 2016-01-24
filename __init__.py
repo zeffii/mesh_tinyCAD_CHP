@@ -1,8 +1,17 @@
-import bpy
-import mathutils
 import math
 
+import bpy
+import bmesh
+import mathutils
+
 from mathutils import Vector, Matrix
+
+from mathutils.geometry import intersect_line_line as LineIntersect
+from mathutils.geometry import intersect_point_line as PtLineIntersect
+
+
+def operate(context, bm, selected):
+    print(selected)
 
 
 class TCChamferPlus(bpy.types.Operator):
@@ -17,7 +26,16 @@ class TCChamferPlus(bpy.types.Operator):
         return bool(obj) and (obj.type == 'MESH') and (obj.mode == 'EDIT')
 
     def execute(self, context):
-        ...
+        obj = bpy.context.edit_object
+        me = obj.data
+        bm = bmesh.from_edit_mesh(me)
+        
+        selected = [e for e in bm.edges if e.select and (not e.hide)]
+
+        if len(selected) == 2:
+            operate(context, bm, selected)
+
+        bmesh.update_edit_mesh(me, True)
         return {"FINISHED"}
 
 
