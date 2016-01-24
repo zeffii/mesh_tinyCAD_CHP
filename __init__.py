@@ -49,12 +49,12 @@ def operate(context, bm, selected):
     
     # reaches this point if the intersection doesnt lie on either edge
     def get_vertex(edge):
-        IDX_BOOL = bool((edge.verts[0].co-p0).length < (edge.verts[1].co-p0).length)
+        IDX_BOOL = bool((edge.verts[0].co-p0).length > (edge.verts[1].co-p0).length)
         return edge.verts[IDX_BOOL]
 
     v1 = bm.verts.new(p0)
-    e1 = bm.edges.new(v1, get_vertex(edge_1))
-    e2 = bm.edges.new(v1, get_vertex(edge_2))
+    e1 = bm.edges.new([v1, get_vertex(edge_1)])
+    e2 = bm.edges.new([v1, get_vertex(edge_2)])
     edge_1.select = False
     edge_2.select = False
     e1.select = True
