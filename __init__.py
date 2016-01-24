@@ -52,13 +52,15 @@ def operate(context, bm, selected):
         IDX_BOOL = bool((edge.verts[0].co-p0).length > (edge.verts[1].co-p0).length)
         return edge.verts[IDX_BOOL]
 
+    bm.select_mode = {'VERT'}
+    bm.select_flush_mode()
     v1 = bm.verts.new(p0)
     e1 = bm.edges.new([v1, get_vertex(edge_1)])
     e2 = bm.edges.new([v1, get_vertex(edge_2)])
     edge_1.select = False
     edge_2.select = False
-    e1.select = True
-    e2.select = True
+    v1.select = True
+
     
     return True
 
@@ -86,6 +88,9 @@ class TCChamferPlus(bpy.types.Operator):
         if len(selected) == 2:
             if operate(context, bm, selected):
                 bmesh.update_edit_mesh(me, True)
+                
+                bpy.ops.mesh.bevel('INVOKE_DEFAULT', vertex_only=True)
+                
                 return {"FINISHED"}
 
         bmesh.update_edit_mesh(me, True)
