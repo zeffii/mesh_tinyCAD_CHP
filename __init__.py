@@ -9,6 +9,18 @@ from mathutils import Vector, Matrix
 from mathutils.geometry import intersect_line_line as LineIntersect
 from mathutils.geometry import intersect_point_line as PtLineIntersect
 
+OWN_PRECISION = 1.0e-5
+
+def point_on_edge(p, edge):
+    '''
+    > p:        vector
+    > edge:     tuple of 2 vectors
+    < returns:  True / False if a point happens to lie on an edge
+    '''
+    pt, _percent = PtLineIntersect(p, *edge)
+    on_line = (pt-p).length < OWN_PRECISION
+    return on_line and (0.0 <= _percent <= 1.0)
+
 
 def operate(context, bm, selected):
     edge_1, edge_2 = selected
@@ -24,7 +36,17 @@ def operate(context, bm, selected):
     else:    
         print('definite intersection found')
 
+    p1 = point_on_edge(isect[0], edge_1)
+    p2 = point_on_edge(isect[0], edge_2)
+    if (p1 and p2):
+        print('point lies on both edges'
+        return
+    elif (p1 or p2):
+        print('point lies on 1 edge'
+        return
     
+    # reaches this point if the intersection doesnt lie on either edge
+        
     
 
 class TCChamferPlus(bpy.types.Operator):
