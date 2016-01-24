@@ -40,10 +40,10 @@ def operate(context, bm, selected):
     p1 = point_on_edge(p0, edge_1)
     p2 = point_on_edge(p0, edge_2)
     if (p1 and p2):
-        print('point lies on both edges'
+        print('point lies on both edges')
         return
     elif (p1 or p2):
-        print('point lies on 1 edge'
+        print('point lies on 1 edge')
         return
     
     # reaches this point if the intersection doesnt lie on either edge
