@@ -60,6 +60,7 @@ def operate(context, bm, selected):
     e1.select = True
     e2.select = True
     
+    return True
 
         
     
@@ -83,10 +84,12 @@ class TCChamferPlus(bpy.types.Operator):
         selected = [e for e in bm.edges if e.select and (not e.hide)]
 
         if len(selected) == 2:
-            operate(context, bm, selected)
+            if operate(context, bm, selected):
+                bmesh.update_edit_mesh(me, True)
+                return {"FINISHED"}
 
         bmesh.update_edit_mesh(me, True)
-        return {"FINISHED"}
+        return {"CANCELLED"}
 
 
 def register():
