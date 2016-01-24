@@ -33,7 +33,6 @@ import bmesh
 import mathutils
 
 from mathutils import Vector, Matrix
-
 from mathutils.geometry import intersect_line_line as LineIntersect
 from mathutils.geometry import intersect_point_line as PtLineIntersect
 
@@ -41,9 +40,9 @@ OWN_PRECISION = 1.0e-5
 
 def point_on_edge(p, edge):
     '''
-    # modifier from cad_module
+    # modified from cad_module
     > p:        vector
-    > edge:     tuple of 2 vectors
+    > edge:     BMEdge
     < returns:  True / False if a point happens to lie on an edge
     '''
     pt, _percent = PtLineIntersect(p, edge.verts[0].co, edge.verts[1].co)
